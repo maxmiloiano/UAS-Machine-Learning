@@ -80,6 +80,3 @@ else:
     st.write(f"Logistic Regression: {logreg_result}")
     st.write(f"Random Forest: {rf_result}")
 
-# --- Menjalankan Aplikasi --- #
-if __name__ == "__main__":
-    main()
