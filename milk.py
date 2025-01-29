@@ -37,12 +37,16 @@ if input_data["Taste"] == 0 and input_data["Odor"] == 0:
     st.write("Logistic Regression: Tidak Layak")
     st.write("Random Forest: Tidak Layak")
 else:
-    # Load dataset yang sudah di preprocessing sebelumnya
-    try:
-        data = pd.read_csv('processed_data.csv')
-    except FileNotFoundError:
-        st.error("File 'processed_data.csv' tidak ditemukan. Pastikan file sudah di upload.")
-        st.stop()
+    # Upload file jika tidak ditemukan
+    uploaded_file = st.file_uploader("Upload processed_data.csv", type="csv")
+    if uploaded_file is not None:
+        data = pd.read_csv(uploaded_file)
+    else:
+        try:
+            data = pd.read_csv('processed_data.csv')
+        except FileNotFoundError:
+            st.error("File 'processed_data.csv' tidak ditemukan. Silakan upload file untuk melanjutkan.")
+            st.stop()
 
     # Pisahkan fitur dan target pada data
     X = data.drop('Grade', axis=1)
@@ -75,3 +79,7 @@ else:
     st.subheader("Hasil Prediksi:")
     st.write(f"Logistic Regression: {logreg_result}")
     st.write(f"Random Forest: {rf_result}")
+
+# --- Menjalankan Aplikasi --- #
+if __name__ == "__main__":
+    main()
