@@ -44,6 +44,12 @@ elif input_data["Taste"] == 1 and input_data["Odor"] == 0:
     st.write("Logistic Regression: Layak")
     st.write("Random Forest: Layak")
 
+# Jika pH rendah dan suhu tinggi, langsung hasil "Tidak Layak"
+elif input_data["pH"] < 5.0 and input_data["Temperature"] > 50:
+    st.subheader("Hasil Prediksi:")
+    st.write("Logistic Regression: Tidak Layak")
+    st.write("Random Forest: Tidak Layak")
+
 else:
     # Cek apakah file tersedia sebelum meminta unggahan
     file_path = "processed_data.csv"
