@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 import os
 
 # Judul aplikasi
-st.title("Water Quality Prediction App")
+st.title("Milk Quality Prediction App")
 
 # Input parameter dari user
 st.sidebar.header("Masukkan Parameter")
@@ -32,11 +32,18 @@ def user_input():
 
 input_data = user_input()
 
-# Jika Taste = 0 dan Odor = 0, tampilkan hasil langsung tanpa prediksi model
+# Jika Taste = 0 dan Odor = 0, langsung hasil "Tidak Layak"
 if input_data["Taste"] == 0 and input_data["Odor"] == 0:
     st.subheader("Hasil Prediksi:")
     st.write("Logistic Regression: Tidak Layak")
     st.write("Random Forest: Tidak Layak")
+
+# Jika Taste = 1 dan Odor = 0, langsung hasil "Layak"
+elif input_data["Taste"] == 1 and input_data["Odor"] == 0:
+    st.subheader("Hasil Prediksi:")
+    st.write("Logistic Regression: Layak")
+    st.write("Random Forest: Layak")
+
 else:
     # Cek apakah file tersedia sebelum meminta unggahan
     file_path = "processed_data.csv"
