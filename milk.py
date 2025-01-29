@@ -35,7 +35,8 @@ input_data = user_input()
 # Langsung berikan hasil prediksi jika memenuhi kriteria "Layak"
 if (
     (input_data["Taste"] == 1 and input_data["Odor"] == 1) or
-    (input_data["pH"] >= 6.5 and input_data["Temperature"] <= 40 and input_data["Taste"] == 1)
+    (input_data["pH"] >= 6.5 and input_data["Temperature"] <= 40 and input_data["Taste"] == 1) or
+    (input_data["pH"] >= 5.5 and input_data["Temperature"] <= 45 and input_data["Taste"] == 1)
 ):
     st.subheader("Hasil Prediksi:")
     st.write("Logistic Regression: Layak")
