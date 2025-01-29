@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+import os
 
 # Judul aplikasi
 st.title("Water Quality Prediction App")
@@ -37,16 +38,17 @@ if input_data["Taste"] == 0 and input_data["Odor"] == 0:
     st.write("Logistic Regression: Tidak Layak")
     st.write("Random Forest: Tidak Layak")
 else:
-    # Upload file jika tidak ditemukan
-    uploaded_file = st.file_uploader("Upload processed_data.csv", type="csv")
-    if uploaded_file is not None:
-        data = pd.read_csv(uploaded_file)
-    else:
-        try:
-            data = pd.read_csv('processed_data.csv')
-        except FileNotFoundError:
+    # Cek apakah file tersedia sebelum meminta unggahan
+    file_path = "processed_data.csv"
+    if not os.path.exists(file_path):
+        uploaded_file = st.file_uploader("Upload processed_data.csv", type="csv")
+        if uploaded_file is not None:
+            data = pd.read_csv(uploaded_file)
+        else:
             st.error("File 'processed_data.csv' tidak ditemukan. Silakan upload file untuk melanjutkan.")
             st.stop()
+    else:
+        data = pd.read_csv(file_path)
 
     # Pisahkan fitur dan target pada data
     X = data.drop('Grade', axis=1)
@@ -79,4 +81,3 @@ else:
     st.subheader("Hasil Prediksi:")
     st.write(f"Logistic Regression: {logreg_result}")
     st.write(f"Random Forest: {rf_result}")
-
